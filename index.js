@@ -49,6 +49,8 @@ app.post('/sign-in', (req, res) => {
         });
 })
 
+console.table(
+  [{test:"line",outcome1:"target",outcome2:"target",outcome3:"targeter",outcome4:"targetus"}]);
 
 app.post('/api/post', upload.array('images', 10), (req, res) => {
   const user = req.body.user;
@@ -76,7 +78,7 @@ app.post('/api/post', upload.array('images', 10), (req, res) => {
       
         // Now you can pass `tempPath` to your upload function
         Facebook_Uploader(result.Facebook_Token, message, tempPath);
-      console.log('Wanting to test');
+        console.log('Wanting to test');
         // Optionally, remove the temporary file after use
         // fs.unlinkSync(tempPath);
         });
