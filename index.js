@@ -6,7 +6,6 @@ const User = require('./models/user')
 const multer = require('multer')
 const DbUrl = 'mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false'
 const {LinkeIn_Uploader, Facebook_Uploader, Twitter_X_Uploader} = require('./controllers/uploaders');
-const { log } = require('console');
 const app = express();
 
 const storage = multer.memoryStorage(); // Use memory storage for the image
@@ -49,9 +48,6 @@ app.post('/sign-in', (req, res) => {
         });
 })
 
-console.table(
-  [{test:"line",outcome1:"target",outcome2:"target",outcome3:"targeter",outcome4:"targetus"}]);
-
 app.post('/api/post', upload.array('images', 10), (req, res) => {
   const user = req.body.user;
   const message = req.body.message;
@@ -67,25 +63,26 @@ app.post('/api/post', upload.array('images', 10), (req, res) => {
       if (postedImages && postedImages.length > 0) {
         console.log('Uploaded files:');
         postedImages.forEach((file, index) => {
-          console.log('Line 68');
-        const tempPath = path.join(__dirname, 'temp-uploads', file.originalname);
-        console.log('Line 70');     
-        // Create a temporary file from the in-memory data
-        fs.writeFileSync(tempPath, file.buffer);
+
+          const tempPath = path.join(__dirname, 'temp-uploads', file.originalname);
+ 
+          // Create a temporary file from the in-memory data
+          fs.writeFileSync(tempPath, file.buffer);
       
-        // Log the temporary file path
-        console.log(`File ${index + 1} path:`, tempPath);
+          // Log the temporary file path
+          console.log(`File ${index + 1} path:`, tempPath);
       
-        // Now you can pass `tempPath` to your upload function
-        Facebook_Uploader(result.Facebook_Token, message, tempPath);
-        console.log('Wanting to test');
-        // Optionally, remove the temporary file after use
-        // fs.unlinkSync(tempPath);
+          // Now you can pass `tempPath` to your upload function
+          Facebook_Uploader(result.Facebook_Token, message, tempPath);
+          console.log('Wanting to test');
+          // Optionally, remove the temporary file after use
+          fs.unlinkSync(tempPath);
         });
       }
 
     })
     .catch((err) => {
+      console.log(err);
       res.json({ error: err})
     });
 
