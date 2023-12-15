@@ -1,10 +1,10 @@
+const env = require()
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const mongoose = require('mongoose');
 const User = require('./models/user')
 const multer = require('multer')
-const DbUrl = 'mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false'
 const {LinkeIn_Uploader, Facebook_Uploader, Twitter_X_Uploader} = require('./controllers/uploaders');
 const app = express();
 
@@ -15,7 +15,7 @@ mongoose.connect(DbUrl, { useNewUrlParser: true, useUnifiedTopology: true })
     .then((result) => app.listen(4000, ()=> console.log('Serveer running on port 4000!')))
     .catch((err) => console.log(err));
 
-// Middleware
+// Middlewares
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
