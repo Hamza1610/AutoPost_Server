@@ -2,10 +2,10 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 const UserSchema = new Schema({
-    UserName: {
+    Email: {
         type: String,
     },
-    Email: {
+    Password: {
         type: String,
     },
     LinkeIn_Token: {
@@ -16,9 +16,6 @@ const UserSchema = new Schema({
     },
     Facebook_Token: {
         type: String
-    },
-    Password: {
-        type: String,
     },
 }
 ,{ timestamps: true }) 
